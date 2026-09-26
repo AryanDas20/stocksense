@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StockSense — Smart Inventory Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ambient animated aurora blobs, sit behind everything -->
+<div class="aurora-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<!-- ===================== SPLASH SCREEN ===================== -->
+<div id="splash-screen" class="splash-screen">
+  <canvas id="splash-canvas" class="splash-canvas"></canvas>
+  <div class="splash-content">
+    <div class="splash-logo">SS</div>
+    <div class="splash-title">StockSense</div>
+    <div class="splash-sub">Booting the stock ledger…</div>
+    <div class="splash-bar"><div class="splash-bar-fill" id="splash-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- ===================== LANDING PAGE ===================== -->
+<div id="landing" class="landing hidden">
+  <canvas id="landing-canvas" class="bg-canvas"></canvas>
+
+  <nav class="land-nav">
+    <div class="land-nav-brand"><span class="brand-mark">SS</span> StockSense</div>
+    <div class="land-nav-links">
+      <a href="#hero">Home</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="#tips">Tips</a>
+    </div>
+    <div class="land-nav-actions">
+      <button class="icon-btn" id="land-theme-toggle" title="Toggle light / dark mode">🌙</button>
+      <button class="btn btn-ghost" id="land-login-btn">Sign in</button>
+      <button class="btn btn-primary" id="land-signup-btn">Get started</button>
+    </div>
+  </nav>
+
+  <section id="hero" class="land-hero">
+    <div class="hero-eyebrow-badge">Hackathon build · Live demo inside</div>
+    <h1>Every unit,<br><span class="grad-text">tracked in real time.</span></h1>
+    <p class="hero-lede">StockSense replaces registers, spreadsheets and scattered trackers with one live ledger for receipts, deliveries, transfers and stock counts — across every warehouse you run.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary btn-lg" id="hero-demo-btn">Launch live demo</button>
+      <button class="btn btn-outline btn-lg" id="hero-tour-btn">Watch the full tour</button>
+    </div>
+    <div class="hero-kbd-hint">Press <kbd>Ctrl</kbd> + <kbd>K</kbd> anywhere inside the app to open the command palette</div>
+  </section>
+
+  <section id="features" class="land-section">
+    <div class="land-section-head">
+      <span class="section-eyebrow">Inside the app</span>
+      <h2>Built for the whole stock cycle</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-ic">↓</div><h3>Receipts</h3><p>Log incoming goods from suppliers; validating a receipt increases stock automatically and writes to the ledger.</p></div>
+      <div class="feature-card"><div class="feature-ic">↑</div><h3>Delivery orders</h3><p>Pick, pack and validate outgoing shipments — with a live check that you never ship more than you hold.</p></div>
+      <div class="feature-card"><div class="feature-ic">⇄</div><h3>Internal transfers</h3><p>Move stock between warehouses or racks without changing your total count, fully logged either way.</p></div>
+      <div class="feature-card"><div class="feature-ic">±</div><h3>Stock adjustments</h3><p>Reconcile a physical count against the system in a click, with the difference recorded automatically.</p></div>
+      <div class="feature-card"><div class="feature-ic">📊</div><h3>Live analytics</h3><p>Animated charts for stock-by-category, weekly movement trends and document-status mix, updated in real time.</p></div>
+      <div class="feature-card"><div class="feature-ic">⌘</div><h3>Command palette</h3><p>Press Ctrl+K to jump to any page, product or action instantly — no clicking through menus.</p></div>
+    </div>
+  </section>
+
+  <section id="about" class="land-section land-section-alt">
+    <div class="land-section-head">
+      <span class="section-eyebrow">About this project</span>
+      <h2>Why StockSense exists</h2>
+    </div>
+    <div class="about-body">
+      <p>Most small and mid-sized operations still run inventory on paper registers and disconnected spreadsheets — no single source of truth, no live view of what's on a shelf, and no record of who moved what and when. StockSense was built to replace that with one modular, real-time system that any inventory manager or warehouse worker can pick up in minutes.</p>
+      <p>The objective is simple: every movement of stock — in from a supplier, out to a customer, across warehouses, or corrected after a physical count — passes through the same ledger. That gives a business a live dashboard of what's low, what's pending, and where every unit physically sits, without a single manual register.</p>
+    </div>
+    <div class="about-stats">
+      <div class="about-stat"><div class="about-stat-num">4</div><div class="about-stat-label">Document types tracked</div></div>
+      <div class="about-stat"><div class="about-stat-num">∞</div><div class="about-stat-label">Warehouses supported</div></div>
+      <div class="about-stat"><div class="about-stat-num">100%</div><div class="about-stat-label">Client-side &amp; offline-capable</div></div>
+    </div>
+  </section>
+
+  <section id="team" class="land-section">
+    <div class="land-section-head">
+      <span class="section-eyebrow">Who built this</span>
+      <h2>The team</h2>
+    </div>
+    <div class="team-grid" id="team-grid"></div>
+  </section>
+
+  <section id="tips" class="land-section land-section-alt">
+    <div class="land-section-head">
+      <span class="section-eyebrow">Before you dive in</span>
+      <h2>Tips to get the most out of it</h2>
+    </div>
+    <div class="tips-grid" id="tips-grid"></div>
+  </section>
+
+  <footer class="land-footer">
+    <div>© <span id="footer-year"></span> StockSense — built for a hackathon, by three people who were tired of spreadsheets.</div>
+    <div class="land-footer-links"><a href="#hero">Back to top</a> · <a href="#" id="footer-login-link">Sign in</a></div>
+  </footer>
+</div>
+
+<!-- ===================== AUTH ===================== -->
+<div id="auth-screen" class="auth-screen hidden">
+  <canvas id="auth-canvas" class="bg-canvas"></canvas>
+  <div class="auth-panel">
+    <button class="auth-back-btn" id="auth-back-btn">← Back to site</button>
+    <div class="auth-brand">
+      <span class="auth-brand-mark">SS</span>
+      <div>
+        <div class="auth-brand-name">StockSense</div>
+        <div class="auth-brand-sub">Stock Ledger &amp; Warehouse Control</div>
+      </div>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="login-form" class="auth-form">
+      <h1>Sign in</h1>
+      <p class="auth-lede">Enter your credentials to reach the inventory dashboard.</p>
+      <label>Email
+        <input type="email" id="login-email" required placeholder="you@company.com">
+      </label>
+      <label>Password
+        <input type="password" id="login-password" required placeholder="••••••••">
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      <div class="auth-links">
+        <a href="#" data-go="reset">Forgot password?</a>
+        <a href="#" data-go="signup">Create an account</a>
+      </div>
+      <button type="button" class="btn btn-ghost btn-block" id="demo-login-btn">Use demo account</button>
+    </form>
+
+    <!-- SIGN UP -->
+    <form id="signup-form" class="auth-form hidden">
+      <h1>Create your account</h1>
+      <p class="auth-lede">Your name shows up across the app, on screenshots, and on your exported PDF.</p>
+      <label>Full name
+        <input type="text" id="signup-name" required placeholder="Alex Rivera">
+      </label>
+      <label>Email
+        <input type="email" id="signup-email" required placeholder="you@company.com">
+      </label>
+      <label>Role
+        <select id="signup-role">
+          <option value="Inventory Manager">Inventory Manager</option>
+          <option value="Warehouse Staff">Warehouse Staff</option>
+        </select>
+      </label>
+      <label>Password
+        <input type="password" id="signup-password" required placeholder="At least 6 characters">
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Create account</button>
+      <div class="auth-links">
+        <a href="#" data-go="login">Back to sign in</a>
+      </div>
+    </form>
+
+    <!-- RESET: request OTP -->
+    <form id="reset-request-form" class="auth-form hidden">
+      <h1>Reset password</h1>
+      <p class="auth-lede">We'll send a one-time code to verify it's you.</p>
+      <label>Email
+        <input type="email" id="reset-email" required placeholder="you@company.com">
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Send code</button>
+      <div class="auth-links">
+        <a href="#" data-go="login">Back to sign in</a>
+      </div>
+    </form>
+
+    <!-- RESET: verify OTP + new password -->
+    <form id="reset-verify-form" class="auth-form hidden">
+      <h1>Enter code</h1>
+      <p class="auth-lede" id="otp-hint">A 6-digit code was generated for this session.</p>
+      <label>One-time code
+        <input type="text" id="reset-otp" maxlength="6" required placeholder="000000" autocomplete="one-time-code">
+      </label>
+      <label>New password
+        <input type="password" id="reset-new-password" required placeholder="At least 6 characters">
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Reset password</button>
+      <div class="auth-links">
+        <a href="#" data-go="login">Back to sign in</a>
+      </div>
+    </form>
+  </div>
+  <div class="auth-side">
+    <div class="auth-side-inner">
+      <div class="ledger-mark">STOCK LEDGER · ALL MOVEMENTS RECORDED</div>
+      <h2>Every unit, tracked from dock to shelf.</h2>
+      <p>Receipts, deliveries, transfers and adjustments — one ledger, real-time, across every warehouse.</p>
+      <div class="mini-ledger" id="auth-mini-ledger"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="app-shell" class="app-shell hidden">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-mark">SS</span>
+      <span class="brand-name">StockSense</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">Overview</div>
+      <a href="#dashboard" class="nav-link" data-view="dashboard"><span class="nav-ic">▦</span> Dashboard</a>
+      <a href="#analytics" class="nav-link" data-view="analytics"><span class="nav-ic">📊</span> Analytics</a>
+
+      <div class="nav-group-label">Products</div>
+      <a href="#products" class="nav-link" data-view="products"><span class="nav-ic">▤</span> Products</a>
+
+      <div class="nav-group-label">Operations</div>
+      <a href="#receipts" class="nav-link" data-view="receipts"><span class="nav-ic">↓</span> Receipts</a>
+      <a href="#deliveries" class="nav-link" data-view="deliveries"><span class="nav-ic">↑</span> Delivery Orders</a>
+      <a href="#transfers" class="nav-link" data-view="transfers"><span class="nav-ic">⇄</span> Internal Transfers</a>
+      <a href="#adjustments" class="nav-link" data-view="adjustments"><span class="nav-ic">±</span> Stock Adjustments</a>
+      <a href="#ledger" class="nav-link" data-view="ledger"><span class="nav-ic">≡</span> Move History</a>
+
+      <div class="nav-group-label">System</div>
+      <a href="#settings" class="nav-link" data-view="settings"><span class="nav-ic">⚙</span> Settings</a>
+    </nav>
+
+    <div class="sidebar-tools">
+      <button class="tool-btn" id="tour-btn" title="Take the guided tour"><span>◎</span> Guided tour</button>
+      <button class="tool-btn" id="shortcuts-btn" title="Keyboard shortcuts"><span>⌘</span> Shortcuts</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="profile-btn" id="profile-btn">
+        <span class="avatar" id="sidebar-avatar">?</span>
+        <span class="profile-btn-text">
+          <span class="profile-name" id="sidebar-name">—</span>
+          <span class="profile-role" id="sidebar-role">—</span>
+        </span>
+      </button>
+      <div class="profile-menu hidden" id="profile-menu">
+        <a href="#profile" data-view="profile">My Profile</a>
+        <button id="logout-btn">Logout</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-col">
+    <header class="topbar">
+      <button class="topbar-menu-btn" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+      <div class="topbar-search">
+        <input type="text" id="global-search" placeholder="Search products, SKUs, documents…  ( / )">
+      </div>
+      <div class="topbar-actions">
+        <div class="topbar-alert" id="topbar-alert"></div>
+        <div class="topbar-popover-wrap">
+          <button class="icon-btn" id="accent-btn" title="Accent color">🎨</button>
+          <div id="accent-panel" class="accent-panel hidden"></div>
+        </div>
+        <div class="topbar-popover-wrap">
+          <button class="icon-btn" id="notif-btn" title="Notifications">🔔<span class="notif-dot hidden" id="notif-dot"></span></button>
+          <div id="notif-panel" class="notif-panel hidden"></div>
+        </div>
+        <button class="icon-btn" id="cmdk-btn" title="Command palette (Ctrl+K)">⌘K</button>
+        <button class="icon-btn" id="screenshot-btn" title="Screenshot this view">◧</button>
+        <button class="icon-btn" id="pdf-btn" title="Export full PDF guide">▤</button>
+        <button class="icon-btn" id="theme-toggle" title="Toggle light / dark mode">🌙</button>
+      </div>
+    </header>
+
+    <main id="app-content" class="app-content"></main>
+  </div>
+
+  <button class="fab" id="fab-btn" title="Quick add">+</button>
+</div>
+
+<!-- ===================== OVERLAYS ===================== -->
+<div id="modal-root"></div>
+<div id="toast-root" class="toast-root"></div>
+<canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+<!-- Command palette -->
+<div id="cmdk-overlay" class="cmdk-overlay hidden">
+  <div class="cmdk-box">
+    <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Jump to a page, product or action…" autocomplete="off">
+    <div id="cmdk-results" class="cmdk-results"></div>
+    <div class="cmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>Enter</kbd> select</span><span><kbd>Esc</kbd> close</span></div>
+  </div>
+</div>
+
+<!-- Keyboard shortcuts modal -->
+<div id="shortcuts-overlay" class="shortcuts-overlay hidden">
+  <div class="shortcuts-box">
+    <div class="modal-head"><h3>Keyboard shortcuts</h3><button class="modal-close" id="shortcuts-close">✕</button></div>
+    <div class="shortcuts-grid" id="shortcuts-grid"></div>
+  </div>
+</div>
+
+<!-- Guided tour -->
+<div id="tour-overlay" class="tour-overlay hidden">
+  <div class="tour-spotlight" id="tour-spotlight"></div>
+  <div class="tour-card" id="tour-card">
+    <div class="tour-step-count" id="tour-step-count"></div>
+    <h3 id="tour-title"></h3>
+    <p id="tour-text"></p>
+    <div class="tour-actions">
+      <button class="btn btn-ghost btn-sm" id="tour-skip">Skip tour</button>
+      <div class="tour-nav-btns">
+        <button class="btn btn-outline btn-sm" id="tour-prev">Back</button>
+        <button class="btn btn-primary btn-sm" id="tour-next">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
