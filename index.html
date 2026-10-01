@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StockSense — Smart Inventory Management</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Ambient animated aurora blobs, sit behind everything -->
+<!-- Ambient animated aurora blobs (behind the app interior) -->
 <div class="aurora-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
 
 <!-- ===================== SPLASH SCREEN ===================== -->
@@ -134,10 +135,10 @@
       <h1>Sign in</h1>
       <p class="auth-lede">Enter your credentials to reach the inventory dashboard.</p>
       <label>Email
-        <input type="email" id="login-email" required placeholder="you@company.com">
+        <input type="email" id="login-email" required placeholder="you@company.com" autocomplete="username">
       </label>
       <label>Password
-        <input type="password" id="login-password" required placeholder="••••••••">
+        <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password">
       </label>
       <button type="submit" class="btn btn-primary btn-block">Sign in</button>
       <div class="auth-links">
@@ -152,10 +153,10 @@
       <h1>Create your account</h1>
       <p class="auth-lede">Your name shows up across the app, on screenshots, and on your exported PDF.</p>
       <label>Full name
-        <input type="text" id="signup-name" required placeholder="Alex Rivera">
+        <input type="text" id="signup-name" required placeholder="Alex Rivera" autocomplete="name">
       </label>
       <label>Email
-        <input type="email" id="signup-email" required placeholder="you@company.com">
+        <input type="email" id="signup-email" required placeholder="you@company.com" autocomplete="email">
       </label>
       <label>Role
         <select id="signup-role">
@@ -164,7 +165,7 @@
         </select>
       </label>
       <label>Password
-        <input type="password" id="signup-password" required placeholder="At least 6 characters">
+        <input type="password" id="signup-password" required placeholder="At least 6 characters" autocomplete="new-password">
       </label>
       <button type="submit" class="btn btn-primary btn-block">Create account</button>
       <div class="auth-links">
@@ -193,21 +194,13 @@
         <input type="text" id="reset-otp" maxlength="6" required placeholder="000000" autocomplete="one-time-code">
       </label>
       <label>New password
-        <input type="password" id="reset-new-password" required placeholder="At least 6 characters">
+        <input type="password" id="reset-new-password" required placeholder="At least 6 characters" autocomplete="new-password">
       </label>
       <button type="submit" class="btn btn-primary btn-block">Reset password</button>
       <div class="auth-links">
         <a href="#" data-go="login">Back to sign in</a>
       </div>
     </form>
-  </div>
-  <div class="auth-side">
-    <div class="auth-side-inner">
-      <div class="ledger-mark">STOCK LEDGER · ALL MOVEMENTS RECORDED</div>
-      <h2>Every unit, tracked from dock to shelf.</h2>
-      <p>Receipts, deliveries, transfers and adjustments — one ledger, real-time, across every warehouse.</p>
-      <div class="mini-ledger" id="auth-mini-ledger"></div>
-    </div>
   </div>
 </div>
 
@@ -325,7 +318,7 @@
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
