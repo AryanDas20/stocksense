@@ -26,12 +26,11 @@
 
 <!-- ===================== LANDING PAGE ===================== -->
 <div id="landing" class="landing hidden">
-  <canvas id="landing-canvas" class="bg-canvas"></canvas>
+  <canvas id="landing-canvas" class="bg-canvas scene-canvas"></canvas>
 
-  <nav class="land-nav">
+  <nav class="land-nav" id="land-nav">
     <div class="land-nav-brand"><span class="brand-mark">SS</span> StockSense</div>
     <div class="land-nav-links">
-      <a href="#hero">Home</a>
       <a href="#features">Features</a>
       <a href="#about">About</a>
       <a href="#team">Team</a>
@@ -45,14 +44,23 @@
   </nav>
 
   <section id="hero" class="land-hero">
-    <div class="hero-eyebrow-badge">Hackathon build · Live demo inside</div>
-    <h1>Every unit,<br><span class="grad-text">tracked in real time.</span></h1>
-    <p class="hero-lede">StockSense replaces registers, spreadsheets and scattered trackers with one live ledger for receipts, deliveries, transfers and stock counts — across every warehouse you run.</p>
-    <div class="hero-actions">
-      <button class="btn btn-primary btn-lg" id="hero-demo-btn">Launch live demo</button>
-      <button class="btn btn-outline btn-lg" id="hero-tour-btn">Watch the full tour</button>
+    <h1 class="blur-in">Describe your stock.<br><span class="soft">We'll keep the ledger.</span></h1>
+
+    <div class="prompt-box blur-in d2">
+      <div class="prompt-text"><span id="prompt-typed"></span><i class="caret"></i></div>
+      <div class="prompt-row">
+        <button class="chip" id="hero-tour-btn">▶ Watch the full tour</button>
+        <button class="chip" id="hero-signup-chip">＋ Create account</button>
+        <span class="chip chip-static">⌘K Command palette</span>
+        <span class="spacer"></span>
+        <button class="send-btn" id="hero-demo-btn" title="Launch live demo" aria-label="Launch live demo">↑</button>
+      </div>
     </div>
-    <div class="hero-kbd-hint">Press <kbd>Ctrl</kbd> + <kbd>K</kbd> anywhere inside the app to open the command palette</div>
+
+    <div class="trust blur-in d3">
+      <div class="trust-label">Replaces the tools you've outgrown</div>
+      <div class="trust-logos"><span>Paper registers</span><span>Spreadsheets</span><span>Scattered trackers</span></div>
+    </div>
   </section>
 
   <section id="features" class="land-section">
